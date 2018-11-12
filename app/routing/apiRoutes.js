@@ -1,30 +1,37 @@
 
-// Variable to require the friends array
+// Variable to require the friends array (information gathered from the survey)
 var friendsData = require("../data/friend");
 
 
 //Routing
 module.exports = function(app) {
     // API GET Requests
-    // Below code handles when users "visit" a page
+    // handles when users "visit" a page
   
     app.get("/api/friends", function(req, res) {
       res.json(friendsData);
     });
   
-
+    // Submits data to the server after user submits the form
     app.post("/api/friends", function(req, res) {
-        // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-        // It will do this by sending out the value "true" have a table
-        // req.body is available since we're using the body parsing middleware
-        if (tableData.length < 5) {
-          tableData.push(req.body);
-          res.json(true);
-        }
-        else {
-          waitListData.push(req.body);
-          res.json(false);
-        }
+        friendsData.push(req.body);
+        console.log(friendsData);
+            res.json(true); 
+            //loop through each 
+        // friendsData.forEach(myFunction);
+
+        // function myFunction (item, index) {
+        
+        //   for( var key in item ) {
+        //     console.log(item[key])
+           
+                
+        //   }
+        // }
+        
+            // res.json(friendsData);
+          
+        
       });
     
       // ---------------------------------------------------------------------------
@@ -33,8 +40,8 @@ module.exports = function(app) {
     
       app.post("/api/clear", function(req, res) {
         // Empty out the arrays of data
-        tableData.length = [];
-        waitListData.length = [];
+        friendsData.length = [];
+       
     
         res.json({ ok: true });
       });
