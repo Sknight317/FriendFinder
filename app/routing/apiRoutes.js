@@ -23,8 +23,23 @@ module.exports = function(app) {
         // function myFunction (item, index) {
         
         //   for( var key in item ) {
-        //     console.log(item[key])
-           
+              
+            // console.log(key[item])
+            for(var i=0; i<friendsData.length;i++) {
+                var scoresarray = friendsData[i].scores;
+                // console.log(friendsData[i].scores);
+                    
+                for(var j=0; j<scoresarray[j].length; j++) {
+                    var A = friendsData[0].scores;
+                    console.log("var a: " + A)
+                    var B = friendsData[1].scores;
+                    console.log("var b: " + B)
+                    var C = [];
+                    console.log("var c: " + C)
+                    C.push(Math.abs(A[j] - B[j]));
+                    
+                }
+            }
                 
         //   }
         // }
@@ -38,11 +53,11 @@ module.exports = function(app) {
       // I added this below code so you could clear out the table while working with the functionality.
       // Don"t worry about it!
     
-      app.post("/api/clear", function(req, res) {
+    //   app.post("/api/clear", function(req, res) {
         // Empty out the arrays of data
-        friendsData.length = [];
+    //     friendsData.length = [];
        
     
-        res.json({ ok: true });
-      });
+    //     res.json({ ok: true });
+    //   });
     };
