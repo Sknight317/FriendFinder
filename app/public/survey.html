@@ -259,11 +259,11 @@
       console.log(newSurvey);
   
     // Sending the information from the survey to the friends api
-     $.ajax({ url: "/api/tables", newSurvey, method: "POST" })
-      .then(function(data) {
+      $.post("/api/friends", newSurvey,
+        function(data) {
             console.log(data);
             alert("success");
-          
+          showModal();
   
           // Clear the form when submitting
           $("#Name").val("");
@@ -278,63 +278,6 @@
         $("#ques8").val("");
         $("#ques9").val("");
         $("#ques10").val("");
-       
-                for(var i=0; i<data.length;i++) {
-                var scoresarray = data[i].scores;
-                // console.log(friendsData[i].scores);
-                    
-                for(var j=0; j<scoresarray[j].length; j++) {
-                    var A = data[0].scores;
-                    console.log("var a: " + A)
-                    var B = data[1].scores;
-                    console.log("var b: " + B)
-                    var C = A.map(function (v, i) { return Math.abs(v - B[i]); });
-                    console.log("var c: " + C)
-                    // console.log('<pre>' + JSON.stringify(c, 0, 4) + '</pre>');
-                    var totalDifference = C.reduce(add,0);
-                    function add(a, b) {
-                        return a + b;
-                    }
-                
-                    console.log("total difference: " + totalDifference);
-                   } 
-                   
-                   if(totalDifference< 20) {
-
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-} 
-modal.append(
-        $("<h1>").text("Best Match"),
-        $("<hr>"),
-        $("<h2>").text("Name: " + data[i].name),
-        $("<h2>").text(data[i].photo),
-    )               
-}
-}
-
         })
         .fail(function() {
         alert( "error" );
@@ -343,7 +286,91 @@ modal.append(
         alert( "finished" );
   });
   
-    });
+    }); 
+                
+    function showModal() {
+        $.ajax({ url: "/api/friends", method: "GET" })
+      .then(function(data) {
+          
+        // Here we then log the tableData to console, where it will show up as an object.
+        console.log(data);
+        console.log("------------------------------------");
+        var differencesArray = [];
+                for(var i=0; i<data.length;i++) {
+                var scoresarray = data[i].scores;
+                // console.log(friendsData[i].scores);
+                    
+                for(var j=0; j<scoresarray[j].length; j++) {
+                    var A = scoresarray;
+                    console.log("var a: " + A)
+                    var number = data.length - 1
+                    console.log("number:" + number)
+                    var B = data[number].scores;
+                    console.log("var b: " + B)
+                    var C = A.map(function (v, i) { return Math.abs(v - B[i]); });
+                    console.log("var c: " + C)
+                    var totalDifference = C.reduce(add,0);
+                    function add(a, b) {
+                        return a + b;
+                    } differencesArray.push(totalDifference);
+                   console.log("total difference: " + totalDifference);
+                     
+                    console.log("------------------------------------");   
+                
+                  
+                    
+                    
+                    
+                     
+                    
+                   }   
+                };  console.log(differencesArray) 
+                    var bestfriend = Math.min.apply(Math, differencesArray.filter(Number));
+                    console.log(bestfriend);
+                    
+                   })
+                   
+
+}
+
+                
+                //    if(totalDifference < 20) {
+
+// Get the modal
+// var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+// var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+// var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+// btn.onclick = function() {
+//     modal.style.display = "block";
+// }
+
+// When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//     modal.style.display = "none";
+// }
+
+// When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//     if (event.target == modal) {
+//         modal.style.display = "none";
+//     }
+// } 
+// modal.append(
+//         $("<h1>").text("Best Match"),
+//         $("<hr>"),
+//         $("<h2>").text("Name: " + data[1].name),
+//         $("<h2>").text(data[1].photo),
+//     )               
+
+
+
+      
 
 
     
