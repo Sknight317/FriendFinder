@@ -259,8 +259,8 @@
       console.log(newSurvey);
   
     // Sending the information from the survey to the friends api
-      $.post("/api/friends", newSurvey,
-        function(data) {
+     $.ajax({ url: "/api/tables", newSurvey, method: "POST" })
+      .then(function(data) {
             console.log(data);
             alert("success");
           
@@ -268,7 +268,7 @@
           // Clear the form when submitting
           $("#Name").val("");
           $("#Photo").val("");
-          $("#ques1").val();
+          $("#ques1").val("");
           $("#ques2").val("");
         $("#ques3").val("");
         $("#ques4").val("");
@@ -278,15 +278,28 @@
         $("#ques8").val("");
         $("#ques9").val("");
         $("#ques10").val("");
-
-        })
-        .fail(function() {
-        alert( "error" );
-        })
-        .always(function() {
-        alert( "finished" );
-  });
-    });
+       
+                for(var i=0; i<data.length;i++) {
+                var scoresarray = data[i].scores;
+                // console.log(friendsData[i].scores);
+                    
+                for(var j=0; j<scoresarray[j].length; j++) {
+                    var A = data[0].scores;
+                    console.log("var a: " + A)
+                    var B = data[1].scores;
+                    console.log("var b: " + B)
+                    var C = A.map(function (v, i) { return Math.abs(v - B[i]); });
+                    console.log("var c: " + C)
+                    // console.log('<pre>' + JSON.stringify(c, 0, 4) + '</pre>');
+                    var totalDifference = C.reduce(add,0);
+                    function add(a, b) {
+                        return a + b;
+                    }
+                
+                    console.log("total difference: " + totalDifference);
+                   } 
+                   
+                   if(totalDifference< 20) {
 
 // Get the modal
 var modal = document.getElementById('myModal');
@@ -313,4 +326,25 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 } 
+modal.append(
+        $("<h1>").text("Best Match"),
+        $("<hr>"),
+        $("<h2>").text("Name: " + data[i].name),
+        $("<h2>").text(data[i].photo),
+    )               
+}
+}
+
+        })
+        .fail(function() {
+        alert( "error" );
+        })
+        .always(function() {
+        alert( "finished" );
+  });
+  
+    });
+
+
+    
   </script>
