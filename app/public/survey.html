@@ -296,12 +296,20 @@
         console.log(data);
         console.log("------------------------------------");
         var differencesArray = [];
+        var difffandScoresArray = [];
                 for(var i=0; i<data.length;i++) {
                 var scoresarray = data[i].scores;
                 // console.log(friendsData[i].scores);
                     
-                for(var j=0; j<scoresarray[j].length; j++) {
+               
+                    var name = data[i].name;
+                    console.log(name);
+                   
+                    var photo = data[i].photo;
+                    
+                    console.log(photo);
                     var A = scoresarray;
+                    
                     console.log("var a: " + A)
                     var number = data.length - 1
                     console.log("number:" + number)
@@ -313,6 +321,8 @@
                     function add(a, b) {
                         return a + b;
                     } differencesArray.push(totalDifference);
+                    
+                   
                    console.log("total difference: " + totalDifference);
                      
                     console.log("------------------------------------");   
@@ -323,10 +333,29 @@
                     
                      
                     
-                   }   
-                };  console.log(differencesArray) 
+                     var info = {
+                      "name": data[i].name,
+                      "photo": data[i].photo,
+                      "totaldiff": totalDifference
+                    }
+                    difffandScoresArray.push(info);
+                      
+                };  
+                    console.log(info);
+                    console.log(differencesArray);
+                    console.log(difffandScoresArray);
                     var bestfriend = Math.min.apply(Math, differencesArray.filter(Number));
                     console.log(bestfriend);
+                    for(var i =0; i<difffandScoresArray.length; i++) {
+                      if(difffandScoresArray[i].totaldiff === bestfriend) {
+                        console.log("Name: " + difffandScoresArray[i].name);
+                        console.log("Photo: " + difffandScoresArray[i].photo)
+                      }
+                      
+                    }
+                   
+                    
+                    
                     
                    })
                    
@@ -338,6 +367,20 @@
 
 // Get the modal
 // var modal = document.getElementById('myModal');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Get the button that opens the modal
 // var btn = document.getElementById("myBtn");
