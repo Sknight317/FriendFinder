@@ -61,7 +61,7 @@
     <div class="form-group">
         <h3>About You</h3>
       <label for="Name">Name (Required)</label>
-      <input type="email" class="form-control" id="Name" placeholder="">
+      <input type="email" class="form-control" id="Name" placeholder="" required/>
     </div>
 
     <div class="form-group">
@@ -222,7 +222,7 @@
       
       </div>
 
-      <button type="button" class="btn btn-primary submit" id="myBtn">Submit</button>
+      <button type="button" class="btn btn-primary submit" id="myBtn" data-toggle="modal" data-target="#myModal">Submit</button>
 
     <footer class="footer">
       <div class="container">
@@ -267,7 +267,7 @@
       $.post("/api/friends", newSurvey,
         function(data) {
             console.log(data);
-            alert("success");
+            // alert("success");
           showModal();
   
           // Clear the form when submitting
@@ -288,25 +288,28 @@
         alert( "error" );
         })
         .always(function() {
-        alert( "finished" );
+        // alert( "finished" );
+        modal.style.display = "block";
   });
   
     }); 
-                
+   
+    // Function to show to modal pop up
     function showModal() {
+      // Getting the data from the api/friends
         $.ajax({ url: "/api/friends", method: "GET" })
       .then(function(data) {
           
         // Here we then log the tableData to console, where it will show up as an object.
         console.log(data);
         console.log("------------------------------------");
+        //Creating empty arrays to send data to
         var differencesArray = [];
         var difffandScoresArray = [];
+        // Using a for loop to loop through all of the data
                 for(var i=0; i<data.length;i++) {
+                  //setting a variable equal to all of the scores in the data array
                 var scoresarray = data[i].scores;
-                // console.log(friendsData[i].scores);
-                    
-               
                     var name = data[i].name;
                     console.log(name);
                    
@@ -315,16 +318,21 @@
                     console.log(photo);
                     var A = scoresarray;
                     
-                    console.log("var a: " + A)
+                    console.log("var a: " + A);
+                    // Finding the number to plug into the array to get the current user's position in the array
                     var number = data.length - 1
-                    console.log("number:" + number)
+                    console.log("number:" + number);
+                    // Plugging the number into the array to get the current user; set it equal to a variable to compare to other users
                     var B = data[number].scores;
-                    console.log("var b: " + B)
+                    console.log("var b: " + B);
+                    // Function to get the absolute value of all the numbers in the scores array for variable a minus variable b
                     var C = A.map(function (v, i) { return Math.abs(v - B[i]); });
                     console.log("var c: " + C)
+                    // Function to add all of the numbers up from the new array found in variable C
                     var totalDifference = C.reduce(add,0);
                     function add(a, b) {
                         return a + b;
+                    //Pushing the total differences in to the empty array
                     } differencesArray.push(totalDifference);
                     
                    
@@ -337,27 +345,35 @@
                     
                     
                      
-                    
+                    //Creating an object to access the name and photo of the best friend
                      var info = {
                       "name": data[i].name,
                       "photo": data[i].photo,
                       "totaldiff": totalDifference
-                    }
+                    }// sending the object for each person in the data array to the empty array
                     difffandScoresArray.push(info);
                       
                 };  
                     console.log(info);
                     console.log(differencesArray);
                     console.log(difffandScoresArray);
+                    //Finding the smallest number in the differences array and excluding the number zero;
+                    // Zero is excluded because 0 differences is the current user
                     var bestfriend = Math.min.apply(Math, differencesArray.filter(Number));
                     console.log(bestfriend);
+                    // Creating a for loop to loop through the new array 
                     for(var i =0; i<difffandScoresArray.length; i++) {
+
+                      //if the totaldifference is equal to the number found to be the best friend's difference number(least amount of difference)
                       if(difffandScoresArray[i].totaldiff === bestfriend) {
                         console.log("Name: " + difffandScoresArray[i].name);
                         console.log("Photo: " + difffandScoresArray[i].photo);
-                        
+
+                   //Call reset modal function to empty the modal
+                         resetModal(); 
                         // Get the modal
                   var modal = document.getElementById('myModal');
+                 
 
                   //Get the button that opens the modal
                   var btn = document.getElementById("myBtn");
@@ -367,36 +383,44 @@
 
                   //When the user clicks on the button, open the modal
                   btn.onclick = function() {
+                    
                       modal.style.display = "block";
+                      
                   }
 
                   //When the user clicks on <span> (x), close the modal
                   span.onclick = function() {
+                   
                       modal.style.display = "none";
+                     
                   }
 
                   //When the user clicks anywhere outside of the modal, close it
                   window.onclick = function(event) {
                       if (event.target == modal) {
                           modal.style.display = "none";
+                         
                       }
-                  } 
-                      var Div = $("<div>");
+                  }         
+                          // Create a div    
+                            var Div = $("<div>");
+                            //Create an image
                         var image =  $("<img>");
+                        //add an attribute and class to the image
                         image.attr("src", difffandScoresArray[i].photo);
                         image.addClass("image");
                         Div.prepend(image);
                         Div.addClass("imagediv");
+                        //Add the info for the current best friend into the modal
                         $(".modal-content").append(
-                        $("<h1>").text("Best Match"),
-                        $("<hr>"),
-                        $("<h2>").text("Name: " + difffandScoresArray[i].name),
+                        $("<h1>").text("Best Match").addClass("info"),
+                        $("<hr>").addClass("info"),
+                        $("<h2>").addClass("info").text("Name: " + difffandScoresArray[i].name),
                           Div,
-                        // $("<h2>").text(difffandScoresArray[i].photo),
-                    )  
-                
+                       
+                    )      
               }
-          
+              
                     }
                    
                     
@@ -407,9 +431,18 @@
 
 }
 
-               
 
 
+// Run the show modal function
+// $(document).ready(function(){
+// showModal();           
+// });
+
+// Reset modal function
+function resetModal() {
+  $(".info").empty().remove(),      
+  $(".imagediv").empty().remove()
+}
               
 
 

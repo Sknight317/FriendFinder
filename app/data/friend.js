@@ -3,7 +3,7 @@
 var friendsArray = [
     {
         "name":"Ahmed",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"http://mediad.publicbroadcasting.net/p/vpr/files/styles/x_large/public/201809/grey-squirrel-yawning-istock-Dgwildlife-20180913.jpg",
         "scores":[
             5,
             1,
