@@ -4,24 +4,53 @@
   <meta charset="UTF-8">
   <title>Friend Finder</title>
 
- 
+  <!-- <link rel="stylesheet" type="text/css" href="../public/style.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Coiny|Comfortaa" rel="stylesheet">
 
+  <style>
+    div#pic {
+    background-image: linear-gradient(to right, rgb(76, 76, 161) , rgb(131, 43, 131));
+    margin-top: 100px;
+    min-width: 100%;
+    min-height: 100%;
+    /* display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size:cover; */
+    }
+    body {
+        background-color: rgb(216, 215, 215);
+    }
+    .text-center {
+      font-family: 'Coiny', cursive !important;
+      color: white;
+    }
+    .btn {
+      background-color:rgb(53, 1, 53) ;
+      font-family: 'Comfortaa', cursive;
+      color: white;
+    }
+    .btn:hover {
+    background-color: rgb(26, 1, 26) !important;
+    }
+    
+  </style>
 </head>
 <body>
 
   <div class="container">
 
-    <div class="jumbotron">
-      <h1 class="text-center"> Friend Finder</h1>
+    <div class="jumbotron" id="pic" >
+      <h1 class="text-center"> Friend Finder!!</h1>
       <hr>
-      <h2>Answer a few basic questions.</h2>
+      <h2 class="text-center">Simply answer a few basic questions.</h2>
       <br>
-      <h2>Then find the friend with the greatest compatability!</h2>
+      <h2 class="text-center">Then find the friend with the greatest compatability!</h2>
 
       <div>
-        <a href="/survey"><button class="btn btn-lg btn-primary"><span class="fa fa-list-alt"></span>Go to Survey</button></a>
+        <a href="/survey"><button class="btn btn-lg">Go to Survey</button></a>
         
       </div>
 
@@ -29,7 +58,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="#">Github Repo</a>
+        <!-- <p><a href="/api/friends">API Friends List</a>  -->
       </div>
     </footer>
 

@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
+  <link href="https://fonts.googleapis.com/css?family=Coiny|Comfortaa" rel="stylesheet">
+  <style>
+
      /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -50,24 +52,90 @@
   height: auto;
   width: 250px;
 }
+body {
+  /* background-image:url('https://png.pngtree.com/thumb_back/fh260/back_pic/04/00/58/5557fdfc4e9e1ed.jpg'); */
+  background-image: linear-gradient(to right, rgb(76, 76, 161) , rgb(252, 156, 156));
+  /* background-color: grey; */
+  font-family: 'Comfortaa', cursive;
+  
+}
+.text-center {
+    /* font-family: 'Coiny', cursive !important;
+    color: white; */
+    margin-top: 20px;
+    font-weight: bold;
+}
+.submit {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+h3 {
+  margin: 40px;
+  font-weight: bold;
+}
+.btn {
+  background-color: rgb(53, 1, 53)  !important;
+  color: white;
+}
+.btn:hover {
+  background-color: rgb(26, 1, 26) !important;
+}
+/* Modal Header */
+.modal-header {
+  padding: 2px 16px;
+  background-color: #444644;
+  color: white;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 2px 16px;
+  text-align: center;
+  }
+
+/* Modal Footer */
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #444644;
+  color: white;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
 </style>
 </head>
 <body>
 
   <div class="container">
-<h2>Survey Questions</h2>
+<h2 class="text-center">Survey Questions</h2>
 
 <form>
     <div class="form-group">
         <h3>About You</h3>
-      <label for="Name">Name (Required)</label>
+      <label for="Name"><b>Name (Required)</b></label>
       <input type="email" class="form-control" id="Name" placeholder="" required/>
     </div>
 
     <div class="form-group">
         
-          <label for="Photo">Link to Photo Image (Required)</label>
-          <input type="email" class="form-control" id="Photo" placeholder="">
+          <label for="Photo"><b>Link to a Photo Image of you (Required)</b></label>
+          <input type="picture" class="form-control" id="Photo" placeholder="">
         </div>
 </form>
 
@@ -216,17 +284,25 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
-          
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                
+              </div>
+              <div class="modal-body">
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                </div> 
         </div>
       
       </div>
 
-      <button type="button" class="btn btn-primary submit" id="myBtn" data-toggle="modal" data-target="#myModal">Submit</button>
+      <button type="button" class="btn submit" id="myBtn" data-toggle="modal" data-target="#myModal">Submit</button>
 
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="#">Github Repo</a>
+        <!-- <p><a href="/api/friends">API Friends List</a> | <a href="#">Github Repo</a> -->
       </div>
     </footer>
 
@@ -259,8 +335,21 @@
         $("#ques9").val().trim(),
         $("#ques10").val().trim(),
       ]
+      
       };
-  
+      if($("#Name").val().trim()=== "") {
+      alert("Name is required.");
+      return
+      }
+      if($("#Photo").val().trim()=== "") {
+      alert("Photo is required.");
+      return
+      } 
+      if($("#ques1").val().trim()=== "Select an Option" || $("#ques2").val().trim()=== "Select an Option" || $("#ques3").val().trim()=== "Select an Option" || $("#ques4").val().trim()=== "Select an Option" || $("#ques5").val().trim()=== "Select an Option" || $("#ques6").val().trim()=== "Select an Option" || $("#ques7").val().trim()=== "Select an Option" || $("#ques8").val().trim()=== "Select an Option" || $("#ques9").val().trim()=== "Select an Option" || $("#ques10").val().trim()=== "Select an Option")   {
+      alert("Question is required.");
+      return
+      } 
+     
       console.log(newSurvey);
   
     // Sending the information from the survey to the friends api
@@ -291,6 +380,7 @@
         // alert( "finished" );
         modal.style.display = "block";
   });
+  
   
     }); 
    
@@ -412,7 +502,7 @@
                         Div.prepend(image);
                         Div.addClass("imagediv");
                         //Add the info for the current best friend into the modal
-                        $(".modal-content").append(
+                        $(".modal-body").append(
                         $("<h1>").text("Best Match").addClass("info"),
                         $("<hr>").addClass("info"),
                         $("<h2>").addClass("info").text("Name: " + difffandScoresArray[i].name),
@@ -427,7 +517,7 @@
                     
                     
                    })
-                   
+                  //  $('#myModal').modal('show');        
 
 }
 

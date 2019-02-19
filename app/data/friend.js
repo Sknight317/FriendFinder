@@ -17,6 +17,22 @@ var friendsArray = [
             1
           ]
       },
+      {
+        "name": "Spongebob Squarepants",
+        "photo": "https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg",
+        "scores": [
+        "5",
+        "4",
+        "2",
+        "1",
+        "2",
+        "1",
+        "1",
+        "1",
+        "3",
+        "4"
+        ]
+        },
     ]
   
   // Used to export the friends array

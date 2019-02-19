@@ -1,0 +1,19 @@
+div#pic {
+    background-image: url('./images/friends.jpeg') !important;
+    margin-top: 100px;
+    }
+    body {
+        background-color: grey;
+    }
+    .text-center {
+      font-family: 'Coiny', cursive !important;
+      color: white;
+    }
+    .btn {
+      background-color: purple;
+      font-family: 'Comfortaa', cursive;
+      color: white;
+    }
+    .btn:hover {
+    background-color: rgb(53, 1, 53) !important;
+    }
